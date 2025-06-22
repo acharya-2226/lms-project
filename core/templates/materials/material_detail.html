@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">{{ material.title }}</h2>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Category</small>
+            <strong>{{ material.get_category_display }}</strong>
+        </div>
+        <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Upload Date</small>
+            <strong>{{ material.upload_date|date:"Y-m-d H:i" }}</strong>
+        </div>
+        <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Teacher</small>
+            <strong>{{ material.teacher }}</strong>
+        </div>
+        <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Subject</small>
+            <strong>{{ material.get_material_subject_display }}</strong>
+        </div>
+        <div class="col-md-12 mb-3">
+            <small class="text-muted d-block">Description</small>
+            <div>{{ material.description|linebreaks }}</div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <small class="text-muted d-block">Material File</small>
+            {% if material.material_file %}
+                <a href="{{ material.material_file.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="fa-solid fa-download me-2"></i>Download File
+                </a>
+            {% else %}
+                <span class="text-muted">No file uploaded</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

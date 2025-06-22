@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Materials List</h2>
+    <table class="table table-bordered table-hover align-middle">
+        <thead>
+            <tr>
+                <th class="px-3">S.No.</th>
+                <th>Title</th>
+                <th>Upload Date</th>
+                <th>Category</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Description</th>
+                <th>File</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for material in materials %}
+            <tr>
+                <td class="px-3">{{ forloop.counter }}</td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                            <i class="fa-solid fa-book text-primary"></i>
+                        </div>
+                        <div>
+                            <strong>{{ material.title }}</strong>
+                            <br>
+                            <small class="text-muted">ID: #{{ material.id }}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span>{{ material.upload_date|date:"Y-m-d H:i" }}</span>
+                </td>
+                <td>
+                    <span>{{ material.get_category_display }}</span>
+                </td>
+                <td>
+                    <span>{{ material.get_material_subject_display }}</span>
+                </td>
+                <td>
+                    <span>{{ material.teacher }}</span>
+                </td>
+                <td>
+                    <span>{{ material.description }}</span>
+                </td>
+                <td>
+                    {% if material.material_file %}
+                        <a href="{{ material.material_file.url }}" target="_blank">Download</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a href="{% url 'material.detail' material.id %}" class="btn btn-sm btn-outline-primary" title="View Details">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a href="{% url 'material.edit' material.id %}" class="btn btn-sm btn-outline-warning" title="Edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a href="{% url 'material.delete' material.id %}" class="btn btn-sm btn-outline-danger" title="Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="text-center">No materials found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

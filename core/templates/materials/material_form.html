@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Add / Edit Material</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_title">Material Title:</label>
+            {{ form.title }}
+        </div>
+        <div>
+            <label for="id_category">Category:</label>
+            {{ form.category }}
+        </div>
+        <div>
+            <label for="id_description">Material Description:</label>
+            {{ form.description }}
+        </div>
+        <div>
+            <label for="id_material_subject">Material Subject:</label>
+            {{ form.material_subject }}
+        </div>
+        <div>
+            <label for="id_material_file">Select file:</label>
+            {{ form.material_file }}
+        </div>
+        <div>
+            <label for="id_upload_date">Upload Date:</label>
+            {{ form.upload_date }}
+        </div>
+        <div>
+            <label for="id_teacher">Teacher:</label>
+            {{ form.teacher }}
+        </div>
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}
